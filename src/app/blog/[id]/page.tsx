@@ -2,6 +2,7 @@ import React from "react";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
+import Link from "next/link";
 
 const detailFetch = async (id: string) => {
   // Fetching all blog posts from Sanity
@@ -17,17 +18,27 @@ async function blogdetail({ params }: { params: { id: string } }) {
   console.log(blogdetail);
 
   return (
-    <div className="p-20 text-5xl">
-      {blogdetail.title}
-      <span className="text-sm">
-        <p className="mt-20">{blogdetail.Description}</p>
-      </span>
-      <Image
-        src={urlFor(blogdetail.Image).width(800).url()}
-        width={100}
-        height={100}
-        alt="Image"
-      />
+    <div className="p-20">
+      <Link href="/">
+        <Image
+          src="/previous.png"
+          width={50}
+          height={50}
+          alt="image"
+          className="mb-10"
+        ></Image>
+      </Link>
+      <p className="md:text-4xl text-2xl font-semibold">{blogdetail.title}</p>
+      <div className="grid md:grid-cols-2 grid-cols-1 items-center mt-16">
+        <Image
+          src={urlFor(blogdetail.Image).width(800).url()}
+          width={500}
+          height={500}
+          alt="Image"
+          className="md:ml-20 md:mb-0 mb-8"
+        />
+        <p>{blogdetail.Description}</p>
+      </div>
     </div>
   );
 }
